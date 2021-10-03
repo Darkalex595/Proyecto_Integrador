@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Basic-Portfolio
+    </title>
+    <meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="./assets/css/style.css"/>
+  </head>
+  <header>
+  <div id="top">
+	<h2>
+		Blue People
+    </h2>
+	<ul>
+      <li>
+	  <a href="index.html">
+          Agregar Item
+	  </a>
+      </li>
+      <li>
+	  <a href="portfolio.html">
+          Crear URL
+	  </a>
+      </li>
+      <li>
+	  <a href="contact.html">
+          Main
+	  </a>
+      </li>
+    </ul>
+  </div>
+  </header>
+  <div id="line2"> </div>
+  <div id="wrap">
+  <body>
+    <h1>
+      Agregar Item
+    </h1>
+	<div id="line"> </div>
+    <div class="wrapper">
+        <div class="row1">
+          <label class="label">
+            Título:    
+          </label>
+          <input type="text" id="titulo" class="textf"/>
+        <div>		  </div>
+          <label class="label">
+            Fecha:
+          </label>
+          <input type="text" id="fecha" class="textf"/>
+          <div>		  </div>
+          <label class="label">
+            Descripción:
+          </label>
+          <input type="text" id="descripcion" class="textfbig" class="textf"/>
+          <div>		  </div>
+          <label class="label">
+            Imagen Card:
+          </label>
+          <input type="text" id="imagenC" class="textfbig" class="textf"/>
+          <div>		  </div>
+          <label class="label">
+            Imagen Detalle:
+          </label>
+          <input type="text" id="imagenD" class="textfbig" class="textf"/>
+        </div>
+        <div class="row2">
+            <label class="label">
+                Links Relacionados
+            </label>
+            <div>		  </div>
+            <label class="label">
+                Nombre:    
+              </label>
+              <input type="text" id="nombre" class="textf"/>
+            <div>		  </div>
+              <label class="label">
+                URL:
+              </label>
+              <input type="text" id="url2" class="textf"/>
+              <div>		  </div>
+              <label class="label">
+                Descripción:
+              </label>
+              <input type="text" id="descripcion2" class="textf" class="textf"/>
+              <div>		  </div>
+              <input type="button" value="+" id="addItemInfo" class="clickable"/>
+              <div>		  </div>
+              <label class="label">
+                Información Adicional
+            </label>
+            <div>		  </div>
+            <label class="label">
+                Atributo:    
+              </label>
+              <input type="text" id="atributo" class="textf"/>
+            <div>		  </div>
+              <label class="label">
+                Valor:
+              </label>
+              <input type="text" id="valor" class="textf"/>
+              <div>		  </div>
+              <input type="button" value="+" id="addItemInfo" class="clickable"/>
+          <div>		  </div>
+          <label class="label">
+            Tags:
+          </label>
+          <input type="text" id="Tags2" class="textfbig"/>
+        </div>
+    </div>
+        <div>
+        <input type="submit" value="Crear" id="submit2" class="clickable"/>
+  </body>
+  </div>
+</html>
