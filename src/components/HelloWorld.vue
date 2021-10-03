@@ -1,113 +1,260 @@
+/* eslint-disable */
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+    <div class="filtro">
+      <div class="tagsSup">
+        <a>TAG 1</a>
+        <a>TAG 2</a>
+        <a>TAG 3</a>
+      </div>
+      <div class="barra">
+        <div class="search">
+          <input type="text" id="searchterm" placeholder="Busqueda" >
+          <button type="button" id="search" v-on:click="buscar()"> Buscar </button>
+        </div>
+      </div>
+      <div class="anuncios">
+        <div class="facts">99 <br> Proyectos</div>
+        <div class="facts">99 <br> Lenguajes</div>
+        <div class="facts">99,000 <br> lineas de código</div>
+      </div>
+    </div>
+    <div class="opciones">
+      <div class="productos" v-for="(producto, index) in productos" v-bind:key="producto">
+        <img class="logo" src="https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png" v-on:click="cambiar(index)">
+      </div>
+    </div>
+    <div class="posterior">
+
+      <div id="id" class="post">
+        <img class="logoId" src="https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png">
+      </div>
+
+      <div id="descripcion" class="post">
+        <h2> Titulo: {{titulo}} </h2>
+        <h2> Fecha: {{fecha}} </h2>
+
+        <div id="extraInfo">
+          {{descripcion}}
+        </div>
+
+      </div>
+
+      <div id = "tagsInf" class="post">
+        <h2>Tags</h2>
+      </div>
+    </div>
   </div>
 </template>
 
+/* --------------------------------------------------------- */
+<style scoped>
+@media screen and (min-width: 320px) and (max-width: 480px){
+  .hello{
+    height: 100%;
+    width: 100%
+  }
+  .filtro{
+    background-color: aqua;
+  }
+  .tagsSup{
+    width: 100%;
+  }
+  .anuncios{
+    display: flex;
+    flex-direction: row;
+  }
+  .posterior{
+    background-color:#88cc00
+  }
+}
+/* --------------------------------------------------------- */
+@media screen and (min-width: 481px) and (max-width: 820px){
+  .hello{
+    height: 100%;
+    width: 100%
+  }
+  .filtro{
+    background-color: aqua;
+  }
+  .tagsSup{
+    width: 100%;
+  }
+  .anuncios{
+    display: flex;
+    flex-direction: row;
+  }
+  .posterior{
+    background-color:#88cc00
+  }
+}
+/* --------------------------------------------------------- */
+@media screen and (min-width: 821px) and (max-width: 1024px){
+  .hello{
+    height: 100%;
+    width: 100%
+  }
+  .filtro{
+   background-color: aqua;
+  }
+  .tagsSup{
+    width: 100%;
+  }
+  .anuncios{
+    display: flex;
+    flex-direction: row;
+  }
+  .posterior{
+    background-color:#88cc00
+  }
+}
+/* --------------------------------------------------------- */
+@media screen and (min-width: 1025px) and (max-width: 1200px){
+  .hello{
+    height: 100%;
+    width: 100%
+  }
+  .filtro{
+    background-color: aqua;
+  }
+
+  .tagsSup{
+    width: 100%;
+  }
+  .anuncios{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .posterior{
+    background-color:#88cc00;
+  }
+}
+/* --------------------------------------------------------- */
+@media screen and (min-width: 1201px){
+  .hello{
+    height: 100%;
+    width: 100%;
+  }
+  .filtro{
+    background-color: aqua;
+  }
+  .tagsSup{
+    width: 100%;
+    text-align: right;
+  }
+  a{
+    margin: 2%
+  }
+  .anuncios{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 2%;
+  }
+  .opciones{
+    height: 30%;
+    padding: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .productos{
+    background-color: #e6b800;
+    width: fit-content;
+    height: fit-content;
+    padding: 1%;
+  }
+  .logo{
+    height: 150px;
+    width: 250px;
+  }
+  .posterior{
+    height: 50%;
+    background-color:#88cc00;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+  #id{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logoId{
+    height: 150px;
+    width: 200px;
+  }
+  .post{
+    width: 30%
+  }
+  #extraInfo{
+    background-color: #b37700;
+    height: 60%;
+    padding: 3%;
+    text-align: left;
+  }
+}
+</style>
+
 <script>
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+export default{
+  name: 'Principal',
+  data(){
+    return{
+      productos: [],
+      tags: [],
+      titulo: "",
+      fecha: "",
+      descripcion: "",
+      logoPos: 0
     }
+  },
+  async created(){
+        this.productos = [
+          {
+            logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
+            titulo: "Generico 1",
+            Fecha: "01/01/2021",
+            Descripcion: "No hay descripcion"
+          },
+          {
+            logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
+            titulo: "Generico 2",
+            Fecha: "01/01/2021",
+            Descripcion: "No hay descripcion"
+          },
+          {
+            logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
+            titulo: "Generico 3",
+            Fecha: "01/01/2021",
+            Descripcion: "No hay descripcion"
+          },
+          {
+            logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
+            titulo: "Generico 4",
+            Fecha: "01/01/2021",
+            Descripcion: "No hay descripcion"
+          },
+        ]
+        this.titulo = this.productos[0].titulo;
+        this.fecha = this.productos[0].Fecha;
+        this.descripcion = this.productos[0].Descripcion;
+
+        
+  },
+  methods:{
+      buscar(){
+        alert(this.logoPos)
+      },
+      cambiar(Num){
+          this.logoPos = Num
+          this.titulo = this.productos[Num].titulo;
+          this.fecha = this.productos[Num].Fecha;
+          this.descripcion = this.productos[Num].Descripcion;
+      }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
