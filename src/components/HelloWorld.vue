@@ -1,4 +1,5 @@
 /* eslint-disable */
+// eslint-disable-next-line
 <template>
   <div class="hello">
     <div class="filtro">
