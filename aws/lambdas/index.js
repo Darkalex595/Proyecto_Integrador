@@ -1,7 +1,6 @@
 
 const { createTag } = require('./src/tags/createTag');
 const { getTag } = require("./src/tags//getTag");
-// const { updateTag } = require("./src/tags//updateTag")
 
 const { createItem } = require("./src/items/createItem");
 const { getItem } = require("./src/items/getItem");
@@ -13,7 +12,7 @@ const TAG = '/tags';
 const ITEMS = '/items';
 const URL = '/url'
 
-exports.handler = async (event, context) => {
+exports.handler = async event => {
   
   const { requestContext, rawPath } = event;
   
@@ -46,8 +45,5 @@ exports.handler = async (event, context) => {
     return createUrl(JSON.parse(body));
   }
   
-  // if (method === 'PUT' && rawPath === TAG) {
-  //  return updateTag();
-  // }
-   return 5;
+   return false;
 };
