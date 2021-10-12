@@ -1,30 +1,12 @@
-const AWS = require('aws-sdk');
-AWS.config.update( {
-  region: 'us-west-2'
-});
-
-const dynamodb = new AWS.DynamoDB.DocumentClient();
-const tagTableName = 'tag';
+const { insertToTable } = require('./../commons/dynamo');
+const { TAG_TABLE } = require('./../commons/constants');
 
 const createTag = async data => {
-    
-  const params = {
-    TableName: tagTableName,
-    Item: {
-      "tagName": data.tagName
-    }
-  }
+  const itemParams = {
+    tagName: data.tagName
+  };
 
-  try {
-    await dynamodb.put(params).promise();
-    return 0;
-  } catch (e) {
-    console.log('ERROR');
-    console.log(JSON.stringify(e));
-    return 1;
-  }
-      
-
+  return insertToTable(TAG_TABLE, itemParams);
 };
 
 module.exports = {
