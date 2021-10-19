@@ -25,7 +25,7 @@
         <img class="logo" src="https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png" v-on:click="cambiar(index)">
       </div>
     </div>
-    <div class="posterior">
+    <div class="posterior" v-show="mostrar">
 
       <div id="id" class="post">
         <img class="logoId" src="https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png">
@@ -43,6 +43,11 @@
 
       <div id = "tagsInf" class="post">
         <h2>Tags</h2>
+        <div id="divTags">
+          <ul id="listaTags" v-for="tag in tags" v-bind:key="tag">
+            <li class ="tags">{{tag}}</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -93,7 +98,7 @@
 @media screen and (min-width: 821px) and (max-width: 1024px){
   .hello{
     height: 100%;
-    width: 100%
+    width: 100%;
   }
   .filtro{
    background-color: aqua;
@@ -113,7 +118,7 @@
 @media screen and (min-width: 1025px) and (max-width: 1200px){
   .hello{
     height: 100%;
-    width: 100%
+    width: 100%;
   }
   .filtro{
     background-color: aqua;
@@ -136,9 +141,12 @@
   .hello{
     height: 100%;
     width: 100%;
+    background-image: url("../assets/css/bush.png");
+    background-attachment: fixed;
   }
   .filtro{
-    background-color: aqua;
+    background-color: #4aaaa5;
+    height: 30%;
   }
   .tagsSup{
     width: 100%;
@@ -146,6 +154,26 @@
   }
   a{
     margin: 2%
+  }
+  .barra{
+    height: 40%;
+  }
+  .search{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #searchterm{
+    width: 50%;
+    height: 40%;
+  }
+  #search{
+    height: 40%;
+  }
+  .facts{
+    color:lightgrey;
+    font-size: 30px;
   }
   .anuncios{
     display: flex;
@@ -159,9 +187,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+
   }
   .productos{
-    background-color: #e6b800;
+    background-color: black;
     width: fit-content;
     height: fit-content;
     padding: 1%;
@@ -196,6 +225,21 @@
     padding: 3%;
     text-align: left;
   }
+  #divTags{
+    
+  }
+  #listaTags{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .tags{
+    background-color: blue;
+    color: white;
+    padding: 2%;
+    border-radius: 25%;
+  }
 }
 </style>
 
@@ -209,7 +253,8 @@ export default{
       titulo: "",
       fecha: "",
       descripcion: "",
-      logoPos: 0
+      logoPos: 0,
+      mostrar: false
     }
   },
   async created(){
@@ -218,7 +263,7 @@ export default{
             logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
             titulo: "Generico 1",
             Fecha: "01/01/2021",
-            Descripcion: "No hay descripcion"
+            Descripcion: "No hay descripcion",
           },
           {
             logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
@@ -242,6 +287,7 @@ export default{
         this.titulo = this.productos[0].titulo;
         this.fecha = this.productos[0].Fecha;
         this.descripcion = this.productos[0].Descripcion;
+        this.tags= ["tag1", "tag2", "tag3", "tag4", "tag5"]
 
         
   },
@@ -250,6 +296,7 @@ export default{
         alert(this.logoPos)
       },
       cambiar(Num){
+          this.mostrar = true;
           this.logoPos = Num
           this.titulo = this.productos[Num].titulo;
           this.fecha = this.productos[Num].Fecha;
