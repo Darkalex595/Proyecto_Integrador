@@ -11,7 +11,7 @@
       <div class="barra">
         <div class="search">
           <input type="text" id="searchterm" placeholder="Busqueda" >
-          <button type="button" id="search" v-on:click="buscar()"> Buscar </button>
+          <button type="button" id="search" v-on:click="getAllUrl()"> Buscar </button>
         </div>
       </div>
       <div class="anuncios">
@@ -200,6 +200,8 @@
 </style>
 
 <script>
+import { createTag } from '../api/routes';
+
 export default{
   name: 'Principal',
   data(){
@@ -254,6 +256,14 @@ export default{
           this.titulo = this.productos[Num].titulo;
           this.fecha = this.productos[Num].Fecha;
           this.descripcion = this.productos[Num].Descripcion;
+      },
+      async getAllUrl() {
+        const body = {
+          "tagName": "pruebaAxios3333"
+        };
+        const result = await createTag(body);
+        console.log('ALL RESULT', result);
+
       }
   }
 }
