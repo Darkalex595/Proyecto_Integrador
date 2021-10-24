@@ -1,299 +1,227 @@
 <template>
-<div class="itemDiv">
-    <div id="line2"> </div>
-  <div id="wrap">
-  <body>
-    <h1>
-      Agregar Item
-    </h1>
-	<div id="line"> </div>
-    <div class="wrapper">
-        <div class="row1">
-            <label class="label">
-              Título:    
-            </label>
-            <input type="text" id="titulo" class="textf"/>
-        <div>		  </div>
-          <label class="label">
-            Fecha:
-          </label>
-          <input type="text" id="fecha" class="textf"/>
-          <div>		  </div>
-          <label class="label">
-            Descripción:
-          </label>
-          <div>		  </div>
-          <label class="label">
-            Imagen Card:
-          </label>
-          <input type="text" id="imagenC" class="[textfbig, textf]"/>
-          <div>		  </div>
-          <label class="label">
-            Imagen Detalle:
-          </label>
-          <input type="text" id="imagenD" class="[textfbig, textf]"/>
-        </div>
-        <div class="row2">
-            <label class="label">
-                Links Relacionados
-            </label>
-            <div>		  </div>
-            <label class="label">
-                Nombre:    
-              </label>
-              <input type="text" id="nombre" class="textf"/>
-            <div>		  </div>
-              <label class="label">
-                URL:
-              </label>
-              <input type="text" id="url2" class="textf"/>
-              <div>		  </div>
-              <label class="label">
-                Descripción:
-              </label>
-              <input type="text" id="descripcion2" class="textf"/>
-              <div>		  </div>
-              <input type="button" value="+" id="addItemInfo" class="clickable"/>
-              <div>		  </div>
-              <label class="label">
-                Información Adicional
-            </label>
-            <div>		  </div>
-            <label class="label">
-                Atributo:    
-              </label>
-              <input type="text" id="atributo" class="textf"/>
-            <div>		  </div>
-              <label class="label">
-                Valor:
-              </label>
-              <input type="text" id="valor" class="textf"/>
-              <div>		  </div>
-              <input type="button" value="+" id="addItemInfo" class="clickable"/>
-          <div>		  </div>
-          <label class="label">
-            Tags:
-          </label>
-          <input type="text" id="Tags2" class="textfbig"/>
-        </div>
-    </div>
-        <div>
-        <input type="submit" value="Crear" id="submit2" class="clickable"/>
-        </div>
-  </body>
-  </div>
+    <main>
+        <section class="w-75 center ">
+            <h1>Agregar Item</h1>
+            <hr class="w-75">
 
-</div>
+            <h1 v-if="error" class="error-message">Lo siento, hubo un error: {{ error }}</h1>
+
+            <div class="flex space-around">
+                <aside class="w-50">
+                    <div class="flex space-around space-row">
+                        <p class="w-40 text-right">Título *</p>
+                        <input class="w-50" type="text" id="titulo" v-model="titulo"/>
+                    </div>
+                    <div class="flex space-around space-row">
+                        <p class="w-40 text-right">Fecha *</p>
+                        <input class="w-50" type="date" id="titulo" v-model="fecha"/>
+                    </div>
+                    <div class="flex space-around space-row">
+                        <p class="w-40 text-right">Descripción *</p>
+                        <input class="w-50" type="text" id="titulo" v-model="descripcion"/>
+                    </div>
+                    <div class="flex space-around space-row">
+                        <p class="w-40 text-right">Imagen card *</p>
+                        <input class="w-50"  type="text" id="titulo" v-model="imagenCard"  />
+                    </div>
+                    <div class="flex space-around space-row">
+                        <p  class="w-40 text-right">Imagen detalle *</p>
+                        <input class="w-50"  type="text" id="titulo" v-model="imagenDetalle"  />
+                    </div>
+                </aside>
+
+                <aside class="w-50">
+                    <div class="flex space-around space-row">
+                        <p>Liks Relacionados</p>
+                    </div>
+                    <div class="flex space-around space-row">
+                        <p  class="w-40 text-right">Nombre</p>
+                        <input class="w-50"  type="text" id="titulo" v-model="nombreLink"  />
+                    </div>
+                    <div class="flex space-around space-row">
+                        <p  class="w-40 text-right">URL:</p>
+                        <input class="w-50"  type="text" id="titulo" v-model="url"/>
+                    </div>
+                    <div class="flex space-around space-row">
+                        <p  class="w-40 text-right">Descripción</p>
+                        <input  class="w-50" type="text" id="titulo" v-model="descripcionLink"  />
+                    </div>
+
+                    <div class="flex space-around space-row">
+                        <p>Información adicional</p>
+                    </div>
+
+                    <div class="flex space-around space-row">
+                        <p  class="w-40 text-right">Atributo</p>
+                        <input class="w-50"  type="text" id="titulo" v-model="infoAtributo"  />
+                    </div>
+
+                    <div class="flex space-around space-row">
+                        <p  class="w-40 text-right">Valor</p>
+                        <input class="w-50"  type="text" id="titulo" v-model="info"  />
+                    </div>
+
+
+                    <div class="flex space-around space-row">
+                        <p  class="w-40 text-right">Tags *</p>
+                        <input class="w-50" type="text" id="tags" v-model="tags"  />
+                    </div>
+
+                    <div class="space-row" style="margin-bottom: 15px;">
+                        <button id="submit-button" type="button" v-on:click="createItem()"> Crear item </button>
+                    </div>
+                </aside>
+            </div>
+
+            <h1 v-if="created" style="padding-bottom: 15px;">Se creó el item exitosamente</h1>
+            
+        </section>
+    </main>
 </template>
 
 <style scoped>
-  .itemDiv{
-    background-image: url("../assets/css/bush.png");
-    height: 100%
-  }
-  body{
-    font-family : 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
-    margin : 0;
-    padding : 0;
-    
-    } 
 
-    #wrap{
-      width : 960px;
-      height : 550px;
-      margin : 25px auto;
-      background-color : white;
-      overflow : hidden;
-      padding : 0px 0px;
-  
+    main {
+        background-image: url("../assets/css/bush.png");
+        height: 100%;
+        font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
     }
 
-    #top{
-  background-color : white;
-  display : flex;
-}
+    section {
+        background-color: white;
+    }
 
-h1{
-  font-family : 'Georgia', Times, Times New Roman, serif;
-  color : #4aaaa5;
-  padding : 0px 20px;
-}
+    h1 {
+        font-family: 'Georgia', Times, Times New Roman, serif;
+        color: #4aaaa5;
+        padding: 0px 20px;
+    }
 
-h2{
-  font-family : 'Georgia', Times, Times New Roman, serif;
-  background-color : #4aaaa5;
-  font-size : 25px;
-  margin : auto;
-  padding : 15px 20px;
-  color : white;
-}
+    p {
+        font-size: 20px;
+        font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+        color: #777777;
+    }
 
-ul {
-  list-style : none;
-  margin : 0;
-  padding : 0px 262px;
-  overflow : auto;
-}
+    input {
+        height: 30px;
+    }
 
-ul > li{
-  float : right;
-  padding : 22px 20px;
-  font-size : 13px;
-  color : #777777;
-}
+    .error-message {
+        color:red;
+    }
 
-ul > li:hover{
-  cursor : pointer;
-  color : white;
-  background-color : #4aaaa5;
-}
+    .flex {
+        display: flex;
+    }
 
+    .space-between {
+        justify-content: space-between;
+    }
 
-#line{
-  display : block;
-  height : 10px;
-  width : 96%;
-  border : 0;
-  border-top : 3px solid #ccc;
-  margin : 15px auto;
-  padding : 0;
-}
+    .space-around{
+        justify-content: space-around;
+    }
 
-#line2{
-  display : block;
-  height : 10px;
-  border : 0;
-  border-top : 3px solid #ccc;
-}
+    .center {
+        margin: 0 auto;
+    }
 
-.label{
-  padding : 10px 20px;
-  font-size : 20px;
-  font-family : 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
-  color : #777777;
-}
+    .text-right {
+        text-align: right;
+    }
 
-.wrapper {
-  display: flex; 
-  justify-content: space-around;
-}
+    .w-40 {
+        width: 40%;
+    }
 
-.textf{
-  margin: 5px 0px;
-}
+    .w-50 {
+        width: 50%;
+    }
 
-.label{
-  margin: 5px 0px;
-}
+    .w-75 {
+        width: 75%;
+    }
 
-#titulo{
-  margin: 0px 5.6px;
-}
+    .w-80 {
+        width: 80%;
+    }
 
-#descripcion{
-  margin: 5px 28.8px;
-}
+    .space-row {
+        margin-top: 8px;
+    }
 
-#imagenC{
-  margin: 5px 18px;
-}
+    #submit-button {
+        color: white;
+        background-color: #4aaaa5;
+    }
 
-#imagenD{
-  margin: 5px 0px;
-}
+    #tags {
+        height: 50px;
+    }
 
-#Tags2{
-  margin : 10px 0px;
-  padding-right : 50px;
-  padding-bottom : 50px;
-}
-
-#addItemInfo{
-  margin : 5px 90%;
-}
-
-#nombre{
-  margin-left: 33px ;
-}
-
-#url2{
-  margin-left: 64px;
-}
-
-#valor{
-  margin-left: 24px;
-}
-
-#url{
-  padding-right: 50px;
-  margin-left: -21px;
-}
-
-#addItem{
-  margin-left: 50px;
-}
-
-#vigencia{
-  margin-left: 22.7px;
-}
-
-#showroom{
-  margin-left: 38px;
-}
-
-#Items{
-  margin : 10px 20px;
-  padding-right : 75px;
-  padding-bottom : 100px;
-}
-
-.textfbig{
-  margin : 10px 20px;
-  padding-right : 75px;
-  padding-bottom : 75px;
-}
-
-#Tags{
-  margin : 10px 20px;
-}
-
-#submit{
-  margin : 10px 90%;
-  padding : 5px 20px;
-  color : white;
-  background-color : #4aaaa5;
-}
-
-#submit2{
-  margin : 24px 90%;
-  padding : 5px 20px;
-  color : white;
-  background-color : #4aaaa5;
-}
-
-a{
-  color: #4aaaa5;
-  padding : 22px;
-}
-
-a:hover{
-  cursor : pointer;
-  color : white;
-  background-color : #4aaaa5;
-}
 </style>
 
 <script>
-export default({
-    name: "Item",
-    setup() {
-        
-    },
-    created(){
-
-    },
-    methods(){
-
-    }
-})
+    import { createItem } from '../api/routes';
+    export default ({
+        name: "Item",
+        data(){
+            return {
+                titulo: "",
+                fecha: "",
+                descripcion: "",
+                imagenCard: "",
+                imagenDetalle: "",
+                nombreLink: "",
+                url: "",
+                descripcionLink: "",
+                infoAtributo: "",
+                info: "",
+                tags: "",
+                error: null,
+                created: false,
+            }
+        },
+        methods: {
+            async createItem() {
+                console.log('CREATE ITEM');
+                if (
+                    this.titulo &&
+                    this.fecha &&
+                    this.descripcion &&
+                    this.imagenCard &&
+                    this.imagenDetalle &&
+                    this.tags
+                ) {
+                    const tagsArray = this.tags.split(', ');
+                    const body = {
+                        "titulo": this.titulo,
+                        "fecha": this.fecha,
+                        "descripcion": this.descripcion,
+                        "imagenCard": this.imagenCard,
+                        "imagenDetalle": this.imagenDetalle,
+                        "nombreLink": this.nombreLink,
+                        "url": this.url,
+                        "descripcionLink": this.descripcionLink,
+                        "infoAtributo": this.infoAtributo,
+                        "info": this.info,
+                        "tags": tagsArray
+                    };
+                    const result = await createItem(body);
+                    if (result) {
+                        this.error = null;
+                        this.created = true;
+                    } else {
+                        this.error = "Algo fallo al crear el item, intenta de nuevo por favor";
+                        this.created = false;
+                    }
+                } else {
+                    this.error = "No hay datos suficientes";
+                    this.created = false;
+                }
+                
+            }
+        }
+    })
 </script>

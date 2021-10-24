@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
+import Item from '@/components/Item'
 
 
 Vue.use(Router)
@@ -15,7 +16,7 @@ export default new Router({
     {
       path: '/item',
       name: 'Item',
-      component: () => import('@/components/Item.vue')
+      component: Item
     },
     {
       path: '/url',
