@@ -1,29 +1,5 @@
 <template>
 <div class="URLDiv">
-  <header>
-  <div id="top">
-	<h2>
-		Blue People
-    </h2>
-	<ul>
-      <li>
-	  <a href="index.html">
-          Agregar Item
-	  </a>
-      </li>
-      <li>
-	  <a href="portfolio.html">
-          Crear URL
-	  </a>
-      </li>
-      <li>
-	  <a href="contact.html">
-          Main
-	  </a>
-      </li>
-    </ul>
-  </div>
-  </header>
   <div id="line2"> </div>
   <div id="wrap">
   <body>
