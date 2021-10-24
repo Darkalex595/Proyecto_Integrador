@@ -3,7 +3,7 @@
   <header>
   <div id="top">
 	<h2>
-		Blue People
+    <router-link class="links" to="/"> Blue People </router-link>
     </h2>
 	<ul>
       <li>
@@ -57,6 +57,7 @@ ul > li:hover{
 a{
   color: white;
   padding : 22px;
+  text-decoration: none;
 }
 
 a:hover{
