@@ -7,52 +7,62 @@
       Crear URL
     </h1>
 	<div id="line"> </div>
-          <label class="label">
-            URL:    
-          </label>
-          <label class="label" id="showroom">
-            showroom.bp.com/ 
-          </label>
-          <input type="text" id="url" class="textf"/>
-        <div>		  </div>
+          <div style="text-align: left">
+            <label class="label">
+              URL:    
+            </label>
+            <label class="label" id="showroom">
+              showroom.bp.com/ 
+            </label>
+            <input type="text" id="url" class="textf"/>
+          </div>
+        <div style="text-align: left">		  
           <label class="label">
             Vigencia:
           </label>
           <input type="text" id="vigencia" class="textf"/>
-          <div>		  </div>
+        </div>
+        <div style="text-align: left">		  
           <label class="label">
             Contador 1:
           </label>
           <input type="text" id="contador" class="textf" placeholder="#"/>
           <input type="text" id="contador" class="textf" placeholder="Etiqueta"/>
-          <div>		  </div>
+        </div>
+        <div style="text-align: left">		  
           <label class="label">
             Contador 2:
           </label>
           <input type="text" id="contador" class="textf" placeholder="#"/>
           <input type="text" id="contador" class="textf" placeholder="Etiqueta"/>
-          <div>		  </div>
+        </div>
+        <div style="text-align: left">		  
           <label class="label">
             Contador 3:
           </label>
           <input type="text" id="contador" class="textf" placeholder="#"/>
           <input type="text" id="contador" class="textf" placeholder="Etiqueta"/>
-          <div>		  </div>
+        </div>
+        <div style="text-align: left">		  
           <label class="label">
             Items:
           </label>
-          <div>		  </div>
+        </div>
+        <div style="text-align: left">		  
           <input type="button" value="+" id="addItem" class="clickable"/>
           <input type="text" id="Items" class="textf"/>
-          <div>		  </div>
+        </div>
+        <div style="text-align: left">		  
           <label class="label">
             Tags:
           </label>
-          <div>		  </div>
+        </div>
+        <div style="text-align: left">		  
           <input type="button" value="+" id="addItem" class="clickable"/>
           <input type="text" id="Tags" class="textf"/>
+        </div>
         <div>
-        <input type="submit" value="Crear" id="submit" class="clickable"/>
+          <input type="submit" value="Crear" id="submit" class="clickable"/>
         </div>
   </body>
   </div>
