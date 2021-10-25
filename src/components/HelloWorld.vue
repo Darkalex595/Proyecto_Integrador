@@ -6,7 +6,7 @@
       <div class="barra">
         <div class="search">
           <input type="text" id="searchterm" placeholder="Busqueda" >
-          <button type="button" id="search" v-on:click="buscar()"> Buscar </button>
+          <button type="button" id="search" v-on:click="getUrl()"> Buscar </button>
         </div>
       </div>
       <div class="anuncios">
@@ -15,7 +15,7 @@
     </div>
     <div class="opciones">
       <div class="productos" v-for="(producto, index) in productos" v-bind:key="producto" v-show="Slides[index]">
-        <img class="logo" src="https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png" v-on:click="cambiar(index)">
+        <img class="logo" v-bind:src="producto.logo" v-on:click="cambiar(index)">
       </div>
         <a class="prev" v-on:click="showSlides(-1)">&#10094;</a>
         <a class="next" v-on:click="showSlides(1)">&#10095;</a>
@@ -23,7 +23,7 @@
     <div class="posterior">
 
       <div id="id" class="post">
-        <img class="logoId" src="https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png">
+        <img class="logoId" v-bind:src= "actualLogo">
       </div>
 
       <div id="descripcion" class="post">
@@ -298,42 +298,59 @@ export default{
       descripcion: "",
       logoPos: 0,
       mostrar: false,
-      Slides: []
+      Slides: [],
+      actualLogo: ""
     }
   },
   async created(){
+        // this.productos = [
+        //   {
+        //     logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
+        //     titulo: "Generico 1",
+        //     Fecha: "01/01/2021",
+        //     Descripcion: "No hay descripcion",
+        //   },
+        //   {
+        //     logo: "https://sdos.es/sites/default/files/styles/blog_post_header_x_large/public/Blog/Header_image/Code-Style---SDOS.png?itok=Y5Zj7QAK",
+        //     titulo: "Generico 2",
+        //     Fecha: "01/01/2021",
+        //     Descripcion: "No hay descripcion"
+        //   },
+        //   {
+        //     logo: "https://miracomosehace.com/wp-content/uploads/2020/06/code-inicio.jpg",
+        //     titulo: "Generico 3",
+        //     Fecha: "01/01/2021",
+        //     Descripcion: "No hay descripcion"
+        //   },
+        //   {
+        //     logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
+        //     titulo: "Generico 4",
+        //     Fecha: "01/01/2021",
+        //     Descripcion: "No hay descripcion"
+        //   },
+        // ];
         this.productos = [
           {
-            logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
-            titulo: "Generico 1",
+            logo: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fii.ct-stc.com%2F2%2Flogos%2Fempresas%2F2017%2F01%2F30%2Fpersona-moral-C6B310788092E999165155thumbnail.png&f=1&nofb=1",
+            titulo: "pagina web",
             Fecha: "01/01/2021",
-            Descripcion: "No hay descripcion",
+            Descripcion: "Creacion de una página web para BluePeople",
           },
           {
             logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
-            titulo: "Generico 2",
+            titulo: "Examen Ceneval",
             Fecha: "01/01/2021",
-            Descripcion: "No hay descripcion"
-          },
-          {
-            logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
-            titulo: "Generico 3",
-            Fecha: "01/01/2021",
-            Descripcion: "No hay descripcion"
-          },
-          {
-            logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
-            titulo: "Generico 4",
-            Fecha: "01/01/2021",
-            Descripcion: "No hay descripcion"
-          },
+            Descripcion: "Tuvimos que hacer el examen ceneval por 8 horas"
+          }
         ];
+
         this.titulo = this.productos[0].titulo;
         this.fecha = this.productos[0].Fecha;
         this.descripcion = this.productos[0].Descripcion;
-        this.tags= ["tag1", "tag2", "tag3", "tag4", "tag5"];
-        this.contadores = ["99", "99", "99000"];
+        this.tags= ["base de datos", "estructura de datos", "programación"];
+        this.contadores = ["16", "1", "8"];
         this.etiquetas = ["Proyectos", "Lenguajes", "Lineas de código"];
+        this.actualLogo = this.productos[0].logo;
 
         this.Slides[0] = true;
         for(var i=1; i< this.productos.length; i++){
@@ -346,9 +363,6 @@ export default{
   methods:{
       buscar(){
         console.log(this.Slides[0])
-      },
-      cambiar(Num){
-          this.mostrar = true;
       },
       showSlides(Atras){
         console.log(this.productos.length)
@@ -371,13 +385,17 @@ export default{
         this.titulo = this.productos[this.logoPos].titulo;
         this.fecha = this.productos[this.logoPos].Fecha;
         this.descripcion = this.productos[this.logoPos].Descripcion;
+        this.actualLogo = this.productos[this.logoPos].logo;
       },
-      async getAllUrl() {
+      async getUrl() {
         const body = {
           "tagName": "pruebaAxios3333"
         };
         const result = await createTag(body);
         console.log('ALL RESULT', result);
+
+      },
+      async getItem(){
 
       }
   }

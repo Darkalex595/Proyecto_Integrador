@@ -288,7 +288,7 @@
 
 import { createUrl } from '../api/routes';
 export default({
-    name: "Url",
+    name: "url",
     data() {
       return {
         error: null,

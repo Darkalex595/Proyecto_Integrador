@@ -4,7 +4,7 @@
   <div id="top">
 	<h2>
     <router-link class="links" to="/"> Blue People </router-link>
-    </h2>
+  </h2>
 	<ul>
       <li>
         <router-link class="links" to="/item"> Agregar Item </router-link>
