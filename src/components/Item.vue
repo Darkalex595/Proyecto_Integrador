@@ -184,7 +184,7 @@
             }
         },
         methods: {
-            async createItem() {
+            createItem() {
                 console.log('CREATE ITEM');
                 if (
                     this.titulo &&
@@ -208,7 +208,7 @@
                         "info": this.info,
                         "tags": tagsArray
                     };
-                    const result = await createItem(body);
+                    const result = createItem(body);
                     if (result) {
                         this.error = null;
                         this.created = true;

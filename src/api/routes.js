@@ -1,112 +1,86 @@
-const axios = require('axios').default;
-
-
-const BASE_URL = 'https://b24pk951ad.execute-api.us-west-2.amazonaws.com/';
 const ITEMS_URL = 'items';
 const TAG_URL = 'tags';
 const URL_URL = 'url';
 
 
-const createItem = async body => {
-    const url = `${BASE_URL}${ITEMS_URL}`;
-    const result = await axios.post(url, body)
-        .catch(error => {
-            console.log(JSON.stringify(error));
-            return null;
-        });
-    
-    if (result) {
-        return result.data;
+const createItem = newItem => {
+  console.log(newItem);
+
+  let allItems = getItems();
+  allItems.items.push(newItem);
+
+  const { tags } = newItem;
+  const allTags = getTags();
+
+  tags.forEach(newtag => {
+    if (!allTags.tags.includes(newtag)) {
+      createTag(newtag);
     }
-    return result;
+  });
+  localStorage.setItem(ITEMS_URL, JSON.stringify(allItems));
+  return true;
 };
 
-const getItem = async () => {
-    const url = `${BASE_URL}${ITEMS_URL}`;
-    const result = await axios.get(url)
-        .catch(error => {
-            console.log(JSON.stringify(error));
-            return null;
-        });
-    
-    if (result) {
-        return result.data;
-    }
-    return result;
+const getItems = () => {
+  let allItems = localStorage.getItem(ITEMS_URL);
+  console.log('hey')
+  console.log(allItems);
+  if (!allItems) {
+    allItems = {
+      items: []
+    };
+  } else {
+    allItems = JSON.parse(allItems);
+  }
+  return allItems;
 };
 
+const createTag = newTag => {
+  let allTags = getTags();
+  allTags.tags.push(newTag);
 
-const createTag = async body => {
-    const url = `${BASE_URL}${TAG_URL}`;
-    const result = await axios.post(url, body,
-        {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .catch(error => {
-            console.log(JSON.stringify(error));
-            return null;
-        });
-
-    if (result) {
-        return result.data;
-    }
-    return result;
+  localStorage.setItem(TAG_URL, JSON.stringify(allTags));
+  return true;
 };
 
-const getTag = async () => {
-    const url = `${BASE_URL}${TAG_URL}`;
-    const result = await axios.get(url)
-        .catch(error => {
-            console.log(JSON.stringify(error));
-            return null;
-        });
-    
-    if (result) {
-        return result.data;
-    }
-
-    return result;
+const getTags = () => {
+  let allTags = localStorage.getItem(TAG_URL);
+  if (!allTags) {
+    allTags = {
+      tags: []
+    };
+  } else {
+    allTags = JSON.parse(allTags);
+  }
+  return allTags;
 };
 
-const createUrl = async body => {
-    const url = `${BASE_URL}${URL_URL}`;
-    const result = await axios.post(url, body)
-        .catch(error => {
-            console.log(JSON.stringify(error));
-            return null;
-        });
+const createUrl = newUrl => {
+  let allUrls = getUrls();
+  allUrls.urls.push(newUrl);
 
-    if (result) {
-        return result.data;
-    }
-    return result;
+  localStorage.setItem(URL_URL, JSON.stringify(allUrls));
+  return true;
 };
 
-const getUrl = async () => {
-    const url = `${BASE_URL}${URL_URL}`;
-    const result = await axios.get(url)
-        .catch(error => {
-            console.log(JSON.stringify(error));
-            return null;
-        });
-    
-    console.log(result);
-    
-    if (result) {
-        return result.data;
-    }
-
-    return result;
+const getUrls = () => {
+  let allUrls = localStorage.getItem(URL_URL);
+  if (!allUrls) {
+    allUrls = {
+      urls: []
+    };
+  } else {
+    allUrls = JSON.parse(allUrls);
+  }
+  return allUrls;
 };
 
 
 export {
-    createItem,
-    getItem,
-    createTag,
-    getTag,
-    createUrl,
-    getUrl
+  createItem,
+  getItems,
+  createTag,
+  getTags,
+  createUrl,
+  getUrls
 }
