@@ -58,7 +58,7 @@
 
         <section class="flex space-around" style="padding: 20px 0;">
           <div v-for="item of allItems">
-            <button class="color-button" v-on:click="addItem(item)"> {{ item }}</button>
+            <button class="color-button" v-on:click="addItem(item)"> {{ item.titulo }}</button>
           </div>
         </section>
 
@@ -338,9 +338,7 @@ export default({
 
     const bdItems = getItems();
     console.log(bdItems.items);
-    this.allItems = bdItems.items.map(it => {
-      return it.titulo;
-    })
+    this.allItems = bdItems.items
   },
   methods: {
     createUrl() {

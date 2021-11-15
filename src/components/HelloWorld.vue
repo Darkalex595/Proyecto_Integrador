@@ -2,25 +2,25 @@
 // eslint-disable-next-line
 <template>
   <div class="hello">
-    <div class="filtro">
+    <div class="filtro" v-show="mostrar1">
       <div class="barra">
         <div class="search">
-          <input type="text" id="searchterm" placeholder="Busqueda" >
-          <button type="button" id="search" v-on:click="getUrl()"> Buscar </button>
+          <input type="text" id="searchterm" placeholder="Busqueda">
+          <button type="button" id="search" v-on:click="buscar()"> Buscar </button>
         </div>
       </div>
       <div class="anuncios">
         <div class="facts" v-for="(etiqueta, index) in etiquetas" v-bind:key="etiqueta">{{contadores[index]}} <br> {{etiqueta}}</div>
       </div>
     </div>
-    <div class="opciones">
+    <div class="opciones" v-show="mostrar1">
       <div class="productos" v-for="(producto, index) in productos" v-bind:key="producto" v-show="Slides[index]">
-        <img class="logo" v-bind:src="producto.logo" v-on:click="cambiar(index)">
+        <img class="logo" v-bind:src="producto.imagenCard" v-on:click="cambiar(index)">
       </div>
         <a class="prev" v-on:click="showSlides(-1)">&#10094;</a>
         <a class="next" v-on:click="showSlides(1)">&#10095;</a>
     </div>
-    <div class="posterior">
+    <div class="posterior" v-show="mostrar1">
 
       <div id="id" class="post">
         <img class="logoId" v-bind:src= "actualLogo">
@@ -44,6 +44,9 @@
           </ul>
         </div>
       </div>
+    </div>
+    <div id="error" v-show="mostrar2">
+      <h1>No existe esa página :(</h1>
     </div>
   </div>
 </template>
@@ -281,7 +284,7 @@
 </style>
 
 <script>
-import { getItem, getUrl } from '../api/routes';
+import { getItem, getUrls } from '../api/routes';
 
 
 
@@ -289,7 +292,9 @@ export default{
   name: 'Principal',
   data(){
     return{
+      name: this.$route.params.id,
       productos: [],
+      urlDB: [],
       tags: [],
       contadores: [],
       etiquetas:[],
@@ -297,7 +302,9 @@ export default{
       fecha: "",
       descripcion: "",
       logoPos: 0,
-      mostrar: false,
+      mostrar1: true,
+      mostrar2: false,
+      existe: false,
       Slides: [],
       actualLogo: ""
     }
@@ -305,94 +312,90 @@ export default{
   async created(){
         // this.productos = [
         //   {
+        //     url: "pagweb",
+        //     logo: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fii.ct-stc.com%2F2%2Flogos%2Fempresas%2F2017%2F01%2F30%2Fpersona-moral-C6B310788092E999165155thumbnail.png&f=1&nofb=1",
+        //     titulo: "pagina web",
+        //     Fecha: "01/01/2021",
+        //     Descripcion: "Creacion de una página web para BluePeople",
+        //   },
+        //   {
+        //     url: "ceneval",
         //     logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
-        //     titulo: "Generico 1",
+        //     titulo: "Examen Ceneval",
         //     Fecha: "01/01/2021",
-        //     Descripcion: "No hay descripcion",
-        //   },
-        //   {
-        //     logo: "https://sdos.es/sites/default/files/styles/blog_post_header_x_large/public/Blog/Header_image/Code-Style---SDOS.png?itok=Y5Zj7QAK",
-        //     titulo: "Generico 2",
-        //     Fecha: "01/01/2021",
-        //     Descripcion: "No hay descripcion"
-        //   },
-        //   {
-        //     logo: "https://miracomosehace.com/wp-content/uploads/2020/06/code-inicio.jpg",
-        //     titulo: "Generico 3",
-        //     Fecha: "01/01/2021",
-        //     Descripcion: "No hay descripcion"
-        //   },
-        //   {
-        //     logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
-        //     titulo: "Generico 4",
-        //     Fecha: "01/01/2021",
-        //     Descripcion: "No hay descripcion"
-        //   },
+        //     Descripcion: "Tuvimos que hacer el examen ceneval por 8 horas"
+        //   }
         // ];
-        this.productos = [
-          {
-            logo: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fii.ct-stc.com%2F2%2Flogos%2Fempresas%2F2017%2F01%2F30%2Fpersona-moral-C6B310788092E999165155thumbnail.png&f=1&nofb=1",
-            titulo: "pagina web",
-            Fecha: "01/01/2021",
-            Descripcion: "Creacion de una página web para BluePeople",
-          },
-          {
-            logo: "https://i.pinimg.com/originals/1c/54/f7/1c54f7b06d7723c21afc5035bf88a5ef.png",
-            titulo: "Examen Ceneval",
-            Fecha: "01/01/2021",
-            Descripcion: "Tuvimos que hacer el examen ceneval por 8 horas"
+
+        this.urlDB = getUrls();
+        var aUrl = this.urlDB.urls;
+        var cont = 0;
+        for(var i = 0; i<aUrl.length; i++){
+          if(aUrl[i].urlName == this.name){
+            this.existe = true; 
+            cont = i;
+            break;
           }
-        ];
-
-        this.titulo = this.productos[0].titulo;
-        this.fecha = this.productos[0].Fecha;
-        this.descripcion = this.productos[0].Descripcion;
-        this.tags= ["base de datos", "estructura de datos", "programación"];
-        this.contadores = ["16", "1", "8"];
-        this.etiquetas = ["Proyectos", "Lenguajes", "Lineas de código"];
-        this.actualLogo = this.productos[0].logo;
-
-        this.Slides[0] = true;
-        for(var i=1; i< this.productos.length; i++){
-          
-          this.Slides[i] = false;
         }
 
-         
+        if(this.existe == false){
+          this.mostrar1 = false;
+          this.mostrar2 = true;
+        }
+        else{
+          console.log(aUrl[cont]);
+          this.productos = aUrl[cont].items;
+          this.titulo = this.productos[0].titulo;
+          this.fecha = this.productos[0].fecha;
+          this.descripcion = this.productos[0].descripcion;
+          this.tags= aUrl[cont].tags;
+          this.contadores = aUrl[cont].contadores.map(contadores => contadores.dato)
+          this.etiquetas = aUrl[cont].contadores.map(contadores => contadores.etiqueta)
+          this.actualLogo = this.productos[0].imagenCard;
+
+          this.Slides[0] = true;
+          for(var i=1; i< this.productos.length; i++){
+            
+            this.Slides[i] = false;
+        }
+        }        
   },
   methods:{
       buscar(){
-        console.log(this.Slides[0])
+        console.log(this.productos.length)
       },
       showSlides(Atras){
-        console.log(this.productos.length)
-        console.log(this.Slides.length)
-        console.log(this.logoPos);
+
+        var aux
         this.Slides[this.logoPos] = false;
         if(Atras == -1){
-          this.logoPos -= 1;
+          aux = this.logoPos - 1;
         }
         else{
-          this.logoPos += 1;
+          aux = this.logoPos + 1;
         }
 
         console.log(this.logoPos);
 
-        if (this.logoPos >= this.productos.length) {this.logoPos = 0}
-        if (this.logoPos < 0) {this.logoPos = this.Slides.length-1}
+        if (aux >= this.productos.length) {aux = 0}
+        if (aux < 0) {aux = this.Slides.length-1}
 
-        this.Slides[this.logoPos] = true;
-        this.titulo = this.productos[this.logoPos].titulo;
-        this.fecha = this.productos[this.logoPos].Fecha;
-        this.descripcion = this.productos[this.logoPos].Descripcion;
-        this.actualLogo = this.productos[this.logoPos].logo;
+        console.log(this.logoPos);
+        
+        if(aux != this.logoPos){
+          this.logoPos = aux;
+          this.Slides[this.logoPos] = true;
+          this.titulo = this.productos[this.logoPos].titulo;
+          this.fecha = this.productos[this.logoPos].fecha;
+          this.descripcion = this.productos[this.logoPos].descripcion;
+          this.actualLogo = this.productos[this.logoPos].imagenCard;
+        }
+        
       },
       async getUrl() {
-        const body = {
-          "tagName": "pruebaAxios3333"
-        };
-        const result = await createTag(body);
-        console.log('ALL RESULT', result);
+        // var results = getUrls()
+        // console.log('ALL RESULT', results);
+        console.log(this.existe)
 
       },
       async getItem(){
