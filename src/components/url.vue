@@ -1,25 +1,25 @@
 <template>
-<div class="URLDiv">
-  <div id="line2"> </div>
-  <div id="wrap">
-  <body>
-    <h1>
-      Crear URL
-    </h1>
+  <div class="URLDiv">
+    <div id="line2"></div>
+    <div id="wrap">
+    <body>
+      <h1>
+        Crear URL
+      </h1>
 
-    <h1 v-if="created">Se creó el url exitosamente</h1>
-    <h1 v-if="error" class="error-message">Lo siento, hubo un error: {{ error }}</h1>
+      <h1 v-if="created">Se creó el url exitosamente</h1>
+      <h1 v-if="error" class="error-message">Lo siento, hubo un error: {{ error }}</h1>
 
-	<div id="line"> </div>
-          <div style="text-align: left">
-            <label class="label">
-              URL:    
-            </label>
-            <label class="label" id="showroom">
-              showroom.bp.com/ 
-            </label>
-            <input type="text" id="url" class="textf" v-model="urlName"/>
-          </div>
+	    <div id="line"> </div>
+        <div style="text-align: left">
+          <label class="label">
+            URL:    
+          </label>
+          <label class="label" id="showroom">
+            showroom.bp.com/ 
+          </label>
+          <input type="text" id="url" class="textf" v-model="urlName"/>
+        </div>
         <div style="text-align: left">		  
           <label class="label">
             Vigencia:
@@ -47,42 +47,69 @@
           <input type="text" id="contador" class="textf" v-model="dato3" placeholder="#"/>
           <input type="text" id="contador" class="textf" v-model="etiqueta3" placeholder="Etiqueta"/>
         </div>
+
+        <div id="line2" style="margin-top: 20px;"></div>
+
         <div style="text-align: left">		  
           <label class="label">
             Items:
           </label>
         </div>
-        <div style="text-align: left">		  
-          <input type="button" value="+" id="addItem" class="clickable"/>
-          <input type="text" id="Items" class="textf" v-model="items"/>
-        </div>
+
+        <section class="flex space-around" style="padding: 20px 0;">
+          <div v-for="item of allItems">
+            <button class="color-button" v-on:click="addItem(item)"> {{ item }}</button>
+          </div>
+        </section>
+
+        <div id="line2" style="margin-top: 20px;"></div>
+
         <div style="text-align: left">		  
           <label class="label">
             Tags:
           </label>
         </div>
-        <div style="text-align: left">		  
-          <input type="button" value="+" id="addItem" class="clickable"/>
-          <input type="text" id="Tags" class="textf" v-model="tags"/>
-        </div>
-        <div>
-            <button id="submit-button" type="button" v-on:click="createUrl()"> Crear url </button>
+
+        <section class="flex space-around" style="padding: 20px 0;">
+          <div v-for="tag of allTags">
+            <button class="color-button" v-on:click="addTag(tag)"> {{ tag }}</button>
+          </div>
+        </section>
+
+        <div id="line2" style="margin-top: 20px;"></div>
+
+        <div style="margin: 20px;">
+          <button id="submit-button" style="padding:5px; cursor: pointer;" type="button" v-on:click="createUrl()"> CREAR URL </button>
         </div>
         
-  </body>
+    </body>
   
   </div>
 
   
-</div>
+  </div>
 </template>
 
 <style scoped>
 
-    #submit-button {
-        color: white;
-        background-color: #4aaaa5;
-    }
+  .flex {
+    display: flex;
+  }
+
+  .space-around {
+    justify-content: space-around;
+  }
+
+  .color-button {
+    cursor: pointer;
+    background-color: #4aaaa5;
+    padding: 5px;
+  }
+
+  #submit-button {
+    color: white;
+    background-color: #4aaaa5;
+  }
   .URLDiv{
     background-image: url("../assets/css/bush.png");
     height: 100%
@@ -91,65 +118,63 @@
     font-family : 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
     margin : 0;
     padding : 0;
-    
-    } 
+  } 
 
-    #wrap{
-      width : 960px;
-      height : 550px;
-      margin : 25px auto;
-      background-color : white;
-      overflow : hidden;
-      padding : 0px 0px;
-  
-    }
+  #wrap{
+    width : 960px;
+    margin : 25px auto;
+    background-color : white;
+    overflow : hidden;
+    padding : 0px 0px;
 
-    #top{
-        background-color : white;
-        display : flex;
-    }
+  }
 
-    .error-message {
-        color:red;
-    }
+  #top{
+    background-color : white;
+    display : flex;
+  }
 
-    h1{
+  .error-message {
+    color:red;
+  }
+
+  h1{
     font-family : 'Georgia', Times, Times New Roman, serif;
     color : #4aaaa5;
     padding : 0px 20px;
-    }
+  }
 
-    h2{
+  h2{
     font-family : 'Georgia', Times, Times New Roman, serif;
     background-color : #4aaaa5;
     font-size : 25px;
     margin : auto;
     padding : 15px 20px;
     color : white;
-    }
+  }
 
-    ul {
+  ul {
     list-style : none;
     margin : 0;
     padding : 0px 262px;
     overflow : auto;
-    }
+  }
 
-    ul > li{
+  ul > li{
     float : right;
     padding : 22px 20px;
     font-size : 13px;
     color : #777777;
-    }
+  }
 
-    ul > li:hover{
+  ul > li:hover{
     cursor : pointer;
     color : white;
     background-color : #4aaaa5;
-    }
+  }
 
 
-    #line{
+  #line{
     display : block;
     height : 10px;
     width : 96%;
@@ -157,204 +182,220 @@
     border-top : 3px solid #ccc;
     margin : 15px auto;
     padding : 0;
-    }
+  }
 
-    #line2{
+  #line2{
     display : block;
     height : 10px;
     border : 0;
     border-top : 3px solid #ccc;
-    }
+  }
 
-    .label{
+  .label{
     padding : 10px 20px;
     font-size : 20px;
     font-family : 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
     color : #777777;
-    }
+  }
 
-    .wrapper {
+  .wrapper {
     display: flex; 
     justify-content: space-around;
-    }
+  }
 
-    .textf{
+  .textf{
     margin: 5px 0px;
-    }
+  }
 
-    .label{
+  .label{
     margin: 5px 0px;
-    }
+  }
 
-    #titulo{
+  #titulo{
     margin: 0px 5.6px;
-    }
+  }
 
-    #descripcion{
+  #descripcion{
     margin: 5px 28.8px;
-    }
+  }
 
-    #imagenC{
+  #imagenC{
     margin: 5px 18px;
-    }
+  }
 
-    #imagenD{
+  #imagenD{
     margin: 5px 0px;
-    }
+  }
 
-    #Tags2{
+  #Tags2{
     margin : 10px 0px;
     padding-right : 50px;
     padding-bottom : 50px;
-    }
+  }
 
-    #addItemInfo{
+  #addItemInfo{
     margin : 5px 90%;
-    }
+  }
 
-    #nombre{
+  #nombre{
     margin-left: 33px ;
-    }
+  }
 
-    #url2{
+  #url2{
     margin-left: 64px;
-    }
+  }
 
-    #valor{
+  #valor{
     margin-left: 24px;
-    }
+  }
 
-    #url{
+  #url{
     padding-right: 50px;
     margin-left: -21px;
-    }
+  }
 
-    #addItem{
+  #addItem{
     margin-left: 50px;
-    }
+  }
 
-    #vigencia{
+  #vigencia{
     margin-left: 22.7px;
-    }
+  }
 
-    #showroom{
+  #showroom{
     margin-left: 38px;
-    }
+  }
 
-    #Items{
+  #Items{
     margin : 10px 20px;
     padding-right : 75px;
     padding-bottom : 100px;
-    }
+  }
 
-    .textfbig{
+  .textfbig{
     margin : 10px 20px;
     padding-right : 75px;
     padding-bottom : 75px;
-    }
+  }
 
-    #Tags{
+  #Tags{
     margin : 10px 20px;
-    }
+  }
 
-    #submit{
+  #submit{
     margin : 10px 90%;
     padding : 5px 20px;
     color : white;
     background-color : #4aaaa5;
-    }
+  }
 
-    #submit2{
+  #submit2{
     margin : 24px 90%;
     padding : 5px 20px;
     color : white;
     background-color : #4aaaa5;
-    }
+  }
 
-    a{
+  a {
     color: #4aaaa5;
     padding : 22px;
-    }
+  }
 
-    a:hover{
+  a:hover{
     cursor : pointer;
     color : white;
     background-color : #4aaaa5;
-    }
+  }
 
 </style>
 
 <script>
 
-import { createUrl } from '../api/routes';
+import { createUrl, getTags, getItems } from '../api/routes';
 export default({
-    name: "url",
-    data() {
-      return {
-        error: null,
-        created: false,
-        urlName: '',
-        vigencia: '',
-        items: '',
-        tags: '',
-        dato1: '',
-        etiqueta1: '',
-        dato2: '',
-        etiqueta2: '',
-        dato3: '',
-        etiqueta3: ''
+  name: 'url',
+  data () {
+    return {
+      error: null,
+      created: false,
+      urlName: '',
+      vigencia: '',
+      items: [],
+      tags: [],
+      allItems: [],
+      allTags: [],
+      dato1: '',
+      etiqueta1: '',
+      dato2: '',
+      etiqueta2: '',
+      dato3: '',
+      etiqueta3: ''
+    }
+  },
+  created () {
+    const bdTags = getTags();
+    this.allTags = bdTags.tags;
+
+    const bdItems = getItems();
+    console.log(bdItems.items);
+    this.allItems = bdItems.items.map(it => {
+      return it.titulo;
+    })
+  },
+  methods: {
+    createUrl() {
+      console.log('CREATE URL');
+      if (
+        this.urlName &&
+        this.vigencia &&
+        this.items &&
+        this.tags
+      ) {
+        const contadores = [];
+        if (this.dato1 && this.etiqueta1) {
+          contadores.push({
+            dato: this.dato1,
+            etiqueta: this.etiqueta1
+          });
+        }
+        if (this.dato2 && this.etiqueta2) {
+          contadores.push({
+            dato: this.dato2,
+            etiqueta: this.etiqueta2
+          });
+        }
+        if (this.dato3 && this.etiqueta3) {
+          contadores.push({
+            dato: this.dato3,
+            etiqueta: this.etiqueta3
+          });
+        }
+        const body = {
+          urlName: this.urlName,
+          vigencia: this.vigencia,
+          contadores: contadores,
+          items: this.items,
+          tags: this.tags
+        };
+        const result = createUrl(body);
+        if (result) {
+          this.error = null;
+          this.created = true;
+        } else {
+          this.error = 'Algo fallo al crear el url, intenta de nuevo por favor';
+          this.created = false;
+        }
+      } else {
+        this.error = 'No hay datos suficientes';
+        this.created = false;
       }
     },
-    methods: {
-      async createUrl() {
-        console.log('CREATE URL');
-        if (
-            this.urlName &&
-            this.vigencia &&
-            this.items &&
-            this.tags
-        ) {
-            const tagsArray = this.tags.split(', ');
-            const itemsArray = this.items.split(', ');
-            const contadores = [];
-            if (this.dato1 && this.etiqueta1){
-                contadores.push({
-                    dato: this.dato1,
-                    etiqueta: this.etiqueta1
-                });
-            }
-            if (this.dato2 && this.etiqueta2){
-                contadores.push({
-                    dato: this.dato2,
-                    etiqueta: this.etiqueta2
-                });
-            }
-            if (this.dato3 && this.etiqueta3){
-                contadores.push({
-                    dato: this.dato3,
-                    etiqueta: this.etiqueta3
-                });
-            }
-            const body = {
-                urlName: this.urlName,
-                vigencia: this.vigencia,
-                contadores: contadores,
-                items: itemsArray,
-                tags: tagsArray
-            };
-            const result = await createUrl(body);
-            if (result) {
-                this.error = null;
-                this.created = true;
-            } else {
-                this.error = "Algo fallo al crear el url, intenta de nuevo por favor";
-                this.created = false;
-            }
-        } else {
-            this.error = "No hay datos suficientes";
-            this.created = false;
-        }
-      }
+    addItem(newItem) {
+      this.items.push(newItem);
+    },
+    addTag(newTag) {
+      this.tags.push(newTag);
     }
+  }
 })
 </script>
